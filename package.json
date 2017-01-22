@@ -1,7 +1,7 @@
 {
-  "name": "angular-quickstart",
+  "name": "asset-budget-ng",
   "version": "1.0.0",
-  "description": "QuickStart package.json from the documentation, supplemented with testing support",
+  "description": "A small project to learn Angular 2 and Typescript",
   "scripts": {
     "start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
     "e2e": "tsc && concurrently \"http-server -s\" \"protractor protractor.config.js\" --kill-others --success first",
@@ -14,7 +14,7 @@
     "tsc:w": "tsc -w"
   },
   "keywords": [],
-  "author": "",
+  "author": "Richard Marks <ccpsceo@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "@angular/common": "~2.4.0",
