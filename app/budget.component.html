@@ -1,0 +1,119 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1 class="text-center">Asset Budget</h1>
+    <div class="panel text-center"
+      [ngClass]="{'text-success': !overbudget, 'text-danger': overbudget}">
+      <button (click)="editAmount()" class="pull-right btn btn-default"><span class="glyphicon glyphicon-pencil"></span></button>
+      <h2 *ngIf="!editingAmount">$ {{startingAmount}} - $ {{spent}} = $ {{startingAmount - spent}}</h2>
+      <div *ngIf="editingAmount">
+        <div class="form-inline">
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-addon">$</div>
+              <input #working class="form-control" placeholder="Starting Amount" />
+            </div>
+            <button (click)="finishEditAmount(working.value); $event.stopPropagation()" class="btn btn-success">Update</button>
+            <button (click)="cancelEditAmount(); $event.stopPropagation()" class="btn btn-default">Nevermind</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="progress">
+      <div class="progress-bar  text-center"
+        role="progressbar"
+        attr.aria-valuenow="{{spending()}}"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        [ngStyle]="{'min-width':'2em', 'width': spendProgressWidth()+'%'}"
+        [ngClass]="{'progress-bar-danger': overbudget, 'progress-bar-success': !overbudget}">
+        {{spending()}}%</div>
+    </div>
+    <div class="text-center"><h2 class="text-danger"><span *ngIf="overbudget">Over Budget!</span>&nbsp;</h2></div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+
+    <div *ngIf="!editingCategories">
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let category of categories">
+          <div class="input-group">
+            <span class="input-group-btn">
+              <button class="btn btn-danger" (click)="removeOne(category)">-</button>
+            </span>
+            <label class="form-control">
+              <span class="badge">{{category.count}}</span> {{category.name}} @ $ {{category.cost}} ea. $ {{category.cost * category.count}}
+            </label>
+            <span class="input-group-btn">
+              <button class="btn btn-success" (click)="addOne(category)">+</button>
+            </span>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div *ngIf="editingCategories">
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let category of categories">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="input-group">
+                  <span class="input-group-addon">Name:</span>
+                  <input #catName [(ngModel)]="category.name" class="form-control" value="{{category.name}}" placeholder="Name" />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-group">
+                  <span class="input-group-addon">Cost:</span>
+                  <input #catCost [(ngModel)]="category.cost" class="form-control" value="{{category.cost}}" placeholder="Price per item" />
+                  <span class="input-group-btn">
+                  <button class="btn btn-danger">X</button>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+      
+      <ul class="list-group">
+        <li class="list-group-item list-group-item-success">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="input-group">
+                  <span class="input-group-addon">Name:</span>
+                  <input #categoryName class="form-control" placeholder="Name" />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-group">
+                  <span class="input-group-addon">Cost:</span>
+                  <input #categoryCost class="form-control" placeholder="Price per item" />
+                  <span class="input-group-btn">
+                  <button class="btn btn-default" (click)="addCategory(categoryName.value, categoryCost.value)">Add Category</button>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      <div class="text-center">
+        <button class="btn btn-success" (click)="finishEditCategories()">Finish Editing</button>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<div class="row" *ngIf="!editingCategories">
+  <div class="col-md-12">
+    <button (click)="editCategories()" class="btn btn-default">Edit Categories</button>
+  </div>
+</div>
