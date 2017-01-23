@@ -70,7 +70,7 @@
                   <span class="input-group-addon">Cost:</span>
                   <input #catCost [(ngModel)]="category.cost" class="form-control" value="{{category.cost}}" placeholder="Price per item" />
                   <span class="input-group-btn">
-                  <button class="btn btn-danger">X</button>
+                  <button (click)="deleteCategory(category)" class="btn btn-danger">X</button>
                   </span>
                 </div>
               </div>
